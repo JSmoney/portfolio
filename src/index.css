@@ -1,0 +1,429 @@
+/* ===========================
+   NES.css + CRT NEON TYPOGRAPHY
+   =========================== */
+
+/* 1. Import fonts */
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap");
+
+/* ===========================
+   1. ROOT TOKENS (COLOURS & FONTS)
+   =========================== */
+
+:root {
+  /* CRT Neon Palette */
+  --crt-bg: #f9f7f2; /* Off white */
+  --crt-text: #0a0f1f; /* CRT Blue for text */
+  --crt-highlight: #03d3c5; /* Neon Cyan */
+  --crt-primary: #2962ff; /* Electric Blue (buttons) */
+  --crt-danger: #ff2ea5; /* Neon Magenta */
+  --crt-pixel: #ffd300; /* Pixel Yellow */
+
+  /* Font stacks */
+  --font-header: "Press Start 2P", "Courier New", monospace;
+  --font-body: "VT323", "Roboto Mono", monospace;
+  --font-accent: "Orbitron", "Aldrich", system-ui, sans-serif;
+}
+
+/* ===========================
+   2. GLOBAL STYLES
+   =========================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Base font + smoothing (NES first, with CRT colours) */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Press Start 2P", cursive;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--crt-text);
+  background-color: var(--crt-bg);
+  letter-spacing: -0.04em; /* Tight NES look */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Optional padding for root/app containers */
+main,
+.app-root {
+  padding: 2rem;
+}
+
+/* Headings use browser-default scale (NES.css behaviour) */
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.17em;
+}
+h4 {
+  font-size: 1em;
+}
+h5 {
+  font-size: 0.83em;
+}
+h6 {
+  font-size: 0.67em;
+}
+
+/* Tighter spacing for headings and UI text */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+.nes-btn,
+label,
+.nes-container.with-title > .title {
+  letter-spacing: -0.06em;
+}
+
+/* Paragraphs and basic flow text */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: #209cee; /* NES.css blue */
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Lists */
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+/* ===========================
+   SIMPLE LAYOUT HELPERS
+   =========================== */
+
+/* Centered hero layout */
+.page-center {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Horizontal row of buttons with gaps */
+.button-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Make all buttons in button-row same width, height auto-fits text */
+.button-row .btn-8bit {
+  /* Set fixed width so all buttons are same width */
+  width: 140px; /* Fixed width to make all buttons same size */
+  height: auto; /* Height auto-fits to text content */
+  min-height: fit-content; /* Just tall enough for one line of text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Keep padding for proper text spacing */
+}
+
+/* ===========================
+   NES CONTAINER TITLES
+   =========================== */
+
+.nes-container.with-title > .title {
+  display: table;
+  padding: 0 0.5rem;
+  margin: -1.8rem 0 1rem;
+  font-size: 1rem;
+  background-color: var(--crt-bg);
+  font-weight: 600; /* simulated bold */
+}
+
+/* Use CRT background for light (non-dark) containers */
+.nes-container.with-title:not(.is-dark) > .title {
+  background-color: var(--crt-bg) !important;
+}
+
+.nes-container.is-rounded.with-title:not(.is-dark) > .title {
+  background-color: var(--crt-bg) !important;
+}
+
+/* Centered title margin adjustment */
+.nes-container.with-title.is-centered > .title {
+  margin: -2rem auto 1rem;
+}
+
+/* Rounded container title adjustments */
+.nes-container.is-rounded.with-title > .title {
+  margin-top: -1.5rem;
+}
+
+.nes-container.is-rounded.with-title.is-centered > .title {
+  margin: -1.5rem auto 1rem;
+}
+
+/* ================================
+   8-BIT BUTTON (USING CRT PALETTE)
+   ================================ */
+
+.btn-8bit {
+  background: var(--crt-primary);
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  font-size: 15px; /* 50% smaller (was 30px) */
+  padding: 10px; /* 50% smaller (was 20px) */
+  font-family: var(--font-header);
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap; /* Prevent text wrapping */
+
+  /* Inner shadow (NES inset) */
+  box-shadow: inset -4px -4px 0 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Hover */
+.btn-8bit:hover,
+.btn-8bit:focus {
+  background: color-mix(in srgb, var(--crt-primary) 85%, black);
+  box-shadow: inset -6px -6px 0 0 rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Pressed */
+.btn-8bit:active {
+  box-shadow: inset 4px 4px 0 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Outer border pieces */
+.btn-8bit::before,
+.btn-8bit::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+}
+
+/* Top + bottom border */
+.btn-8bit::before {
+  top: -6px;
+  left: 0;
+  border-top: 6px solid #000;
+  border-bottom: 6px solid #000;
+}
+
+/* Left + right border */
+.btn-8bit::after {
+  left: -6px;
+  top: 0;
+  border-left: 6px solid #000;
+  border-right: 6px solid #000;
+}
+
+/* =================================
+   BUTTON VARIANTS — CRT PALETTE
+   ================================= */
+
+/* RED / DANGER */
+.btn-8bit--reset {
+  background: var(--crt-danger);
+  box-shadow: inset -4px -4px 0 0
+    color-mix(in srgb, var(--crt-danger) 60%, black);
+}
+
+.btn-8bit--reset:hover,
+.btn-8bit--reset:focus {
+  background: color-mix(in srgb, var(--crt-danger) 85%, black);
+  box-shadow: inset -6px -6px 0 0
+    color-mix(in srgb, var(--crt-danger) 45%, black);
+}
+
+.btn-8bit--reset:active {
+  box-shadow: inset 4px 4px 0 0 color-mix(in srgb, var(--crt-danger) 45%, black);
+}
+
+/* YELLOW / PIXEL */
+.btn-8bit--proceed {
+  background: var(--crt-pixel);
+  color: #000;
+  box-shadow: inset -4px -4px 0 0
+    color-mix(in srgb, var(--crt-pixel) 50%, black);
+}
+
+.btn-8bit--proceed:hover,
+.btn-8bit--proceed:focus {
+  background: color-mix(in srgb, var(--crt-pixel) 85%, black);
+  box-shadow: inset -6px -6px 0 0
+    color-mix(in srgb, var(--crt-pixel) 40%, black);
+}
+
+.btn-8bit--proceed:active {
+  box-shadow: inset 4px 4px 0 0 color-mix(in srgb, var(--crt-pixel) 40%, black);
+}
+
+/* CYAN HIGHLIGHT VARIANT */
+.btn-8bit--highlight {
+  background: var(--crt-highlight);
+  color: #000;
+  box-shadow: inset -4px -4px 0 0
+    color-mix(in srgb, var(--crt-highlight) 45%, black);
+}
+
+.btn-8bit--highlight:hover,
+.btn-8bit--highlight:focus {
+  background: color-mix(in srgb, var(--crt-highlight) 85%, black);
+}
+
+/* ================================
+   8-BIT BUTTON — SIZE VARIANTS
+   ================================ */
+
+/* Small */
+.btn-8bit--sm {
+  font-size: 18px;
+  padding: 8px 14px;
+}
+
+/* Large */
+.btn-8bit--lg {
+  font-size: 34px;
+  padding: 26px 34px;
+}
+
+/* Extra Large */
+.btn-8bit--xl {
+  font-size: 46px;
+  padding: 36px 46px;
+}
+
+/* Block / Full width */
+.btn-8bit--block {
+  width: 100%;
+  display: block;
+}
+
+/* ===========================
+   BADGE STYLING
+   =========================== */
+
+/* Badge font (NES header font) */
+.nes-badge span {
+  font-family: var(--font-header) !important;
+}
+
+/* Technology Badge Colors */
+.nes-badge.tech-react span.is-primary {
+  background-color: #61dafb !important;
+  color: #fff !important;
+  box-shadow: 0 0.5em #61dafb, 0 -0.5em #61dafb, 0.5em 0 #61dafb,
+    -0.5em 0 #61dafb !important;
+}
+
+.nes-badge.tech-javascript span.is-primary {
+  background-color: #f7df1e !important;
+  color: #000 !important;
+  box-shadow: 0 0.5em #f7df1e, 0 -0.5em #f7df1e, 0.5em 0 #f7df1e,
+    -0.5em 0 #f7df1e !important;
+}
+
+.nes-badge.tech-tailwind span.is-primary {
+  background-color: #61dafb !important; /* Same blue as React */
+  color: #fff !important;
+  box-shadow: 0 0.5em #61dafb, 0 -0.5em #61dafb, 0.5em 0 #61dafb,
+    -0.5em 0 #61dafb !important;
+}
+
+.nes-badge.tech-css span.is-primary {
+  background-color: var(--crt-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 0.5em var(--crt-primary), 0 -0.5em var(--crt-primary),
+    0.5em 0 var(--crt-primary), -0.5em 0 var(--crt-primary) !important;
+}
+
+.nes-badge.tech-node span.is-primary {
+  background-color: #339933 !important;
+  color: #fff !important;
+  box-shadow: 0 0.5em #339933, 0 -0.5em #339933, 0.5em 0 #339933,
+    -0.5em 0 #339933 !important;
+}
+
+.nes-badge.tech-python span.is-primary {
+  background-color: var(--crt-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 0.5em var(--crt-primary), 0 -0.5em var(--crt-primary),
+    0.5em 0 var(--crt-primary), -0.5em 0 var(--crt-primary) !important;
+}
+
+/* Skill Badge Colors (Black) */
+.nes-badge.skill-badge span.is-dark {
+  background-color: #000000 !important;
+  color: #fff !important;
+  box-shadow: 0 0.5em #000000, 0 -0.5em #000000, 0.5em 0 #000000,
+    -0.5em 0 #000000 !important;
+}
+
+/* HTML Badge Color (HTML Logo Red) */
+.nes-badge.tech-html span.is-primary {
+  background-color: #e34c26 !important; /* HTML logo red */
+  color: #fff !important;
+  box-shadow: 0 0.5em #e34c26, 0 -0.5em #e34c26, 0.5em 0 #e34c26,
+    -0.5em 0 #e34c26 !important;
+}
+
+/* Node Badge Color (Node Green) */
+.nes-badge.tech-node span.is-primary,
+.nes-badge.tech-node-js span.is-primary {
+  background-color: #339933 !important; /* Node.js green */
+  color: #fff !important;
+  box-shadow: 0 0.5em #339933, 0 -0.5em #339933, 0.5em 0 #339933,
+    -0.5em 0 #339933 !important;
+}
+
+/* Full-stack Badge Color (Black) */
+.nes-badge.tech-full-stack span.is-primary {
+  background-color: #000000 !important;
+  color: #fff !important;
+  box-shadow: 0 0.5em #000000, 0 -0.5em #000000, 0.5em 0 #000000,
+    -0.5em 0 #000000 !important;
+}
+
+/* Interpersonal/Business Badge Colors (Black) */
+.nes-badge.interpersonal-badge span.is-success {
+  background-color: #000000 !important; /* Black */
+  color: #fff !important;
+  box-shadow: 0 0.5em #000000, 0 -0.5em #000000, 0.5em 0 #000000,
+    -0.5em 0 #000000 !important;
+}
